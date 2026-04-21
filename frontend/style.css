@@ -1,0 +1,145 @@
+:root {
+  --bg-start: #f4f7ff;
+  --bg-end: #e9f7f2;
+  --card-bg: #ffffff;
+  --text-main: #1f2937;
+  --text-soft: #6b7280;
+  --primary: #1d4ed8;
+  --primary-hover: #1e40af;
+  --secondary: #f3f4f6;
+  --secondary-hover: #e5e7eb;
+  --border: #d1d5db;
+  --success: #047857;
+  --error: #b91c1c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-main);
+  background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
+  min-height: 100vh;
+}
+
+#app {
+  width: min(960px, 92%);
+  margin: 48px auto;
+}
+
+#auth-panel {
+  width: min(460px, 100%);
+  margin: 0 auto;
+  padding: 28px;
+  border-radius: 16px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  box-shadow: 0 18px 45px rgba(31, 41, 55, 0.12);
+}
+
+#auth-panel h2 {
+  margin: 0 0 8px;
+  font-size: 1.6rem;
+}
+
+.auth-subtitle {
+  margin: 0 0 18px;
+  color: var(--text-soft);
+  font-size: 0.95rem;
+}
+
+input,
+select,
+button {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  font-size: 0.96rem;
+}
+
+input,
+select {
+  margin-bottom: 12px;
+  background: #fff;
+}
+
+input:focus,
+select:focus {
+  outline: 2px solid rgba(29, 78, 216, 0.2);
+  border-color: var(--primary);
+}
+
+.auth-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.btn {
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+}
+
+.btn-secondary {
+  background: var(--secondary);
+  color: var(--text-main);
+}
+
+.btn-secondary:hover {
+  background: var(--secondary-hover);
+}
+
+#auth-msg {
+  min-height: 1.4em;
+  margin: 12px 2px 0;
+  font-size: 0.92rem;
+}
+
+#calc-section {
+  margin-top: 22px;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+#calc-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+#calc-table th,
+#calc-table td {
+  border: 1px solid var(--border);
+  padding: 8px;
+  text-align: left;
+}
+
+@media (max-width: 560px) {
+  #app {
+    margin: 28px auto;
+  }
+
+  #auth-panel {
+    padding: 20px;
+  }
+
+  .auth-actions {
+    grid-template-columns: 1fr;
+  }
+}

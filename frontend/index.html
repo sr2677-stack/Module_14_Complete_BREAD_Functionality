@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Calculations App</title>
+  <link rel="stylesheet" href="./style.css?v=20260421" />
+</head>
+<body>
+  <div id="app">
+    <!-- AUTH SECTION -->
+    <div id="auth-panel">
+      <h2>Welcome Back</h2>
+      <p class="auth-subtitle">Sign in to continue, or create a new account.</p>
+      <input id="username" type="text" placeholder="Enter username" />
+      <input id="password" type="password" placeholder="Enter password" />
+      <div class="auth-actions">
+        <button class="btn btn-primary" onclick="login()">Login</button>
+        <button class="btn btn-secondary" onclick="register()">Register</button>
+      </div>
+      <p id="auth-msg"></p>
+    </div>
+
+    <!-- CALCULATIONS SECTION -->
+    <div id="calc-section" style="display:none">
+      <h2>My Calculations</h2>
+      <button onclick="logout()">Logout</button>
+
+      <!-- ADD FORM -->
+      <h3>Add Calculation</h3>
+      <select id="operation">
+        <option value="add">Add</option>
+        <option value="subtract">Subtract</option>
+        <option value="multiply">Multiply</option>
+        <option value="divide">Divide</option>
+      </select>
+      <input id="operand1" type="number" placeholder="Operand 1" />
+      <input id="operand2" type="number" placeholder="Operand 2" />
+      <button onclick="addCalc()">Calculate</button>
+      <p id="add-msg"></p>
+
+      <!-- EDIT FORM -->
+      <h3>Edit Calculation</h3>
+      <input id="edit-id" type="number" placeholder="Calculation ID" />
+      <select id="edit-operation">
+        <option value="add">Add</option>
+        <option value="subtract">Subtract</option>
+        <option value="multiply">Multiply</option>
+        <option value="divide">Divide</option>
+      </select>
+      <input id="edit-operand1" type="number" placeholder="Operand 1" />
+      <input id="edit-operand2" type="number" placeholder="Operand 2" />
+      <button onclick="editCalc()">Update</button>
+      <p id="edit-msg"></p>
+
+      <!-- DELETE -->
+      <h3>Delete Calculation</h3>
+      <input id="delete-id" type="number" placeholder="Calculation ID" />
+      <button onclick="deleteCalc()">Delete</button>
+      <p id="delete-msg"></p>
+
+      <!-- LIST -->
+      <h3>All Calculations</h3>
+      <button onclick="browseCalcs()">Refresh List</button>
+      <table id="calc-table" border="1">
+        <thead>
+          <tr><th>ID</th><th>Operation</th><th>Operand 1</th><th>Operand 2</th><th>Result</th><th>Date</th></tr>
+        </thead>
+        <tbody id="calc-body"></tbody>
+      </table>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
