@@ -87,17 +87,19 @@ def edit(id):
     if not calc:
         return jsonify({"error": "Calculation not found"}), 404
 
-    data = request.get_json()
+    data = request.get_json() or {}
     operation = data.get('operation', calc.operation)
     operand1  = data.get('operand1', calc.operand1)
     operand2  = data.get('operand2', calc.operand2)
 
     if operation not in VALID_OPERATIONS:
         return jsonify({"error": "Invalid operation"}), 400
+    if not isinstance(operand1, (int, float)) or not isinstance(operand2, (int, float)):
+        return jsonify({"error": "Operands must be numbers"}), 400
 
     try:
         result = compute(operation, operand1, operand2)
-    except ValueError as e:
+    except (TypeError, ValueError) as e:
         return jsonify({"error": str(e)}), 400
 
     calc.operation = operation

@@ -84,6 +84,25 @@ test('Delete: Remove a calculation successfully', async ({ page, request }) => {
   await expect(page.locator('#delete-msg')).toHaveText('Deleted!');
 });
 
+test('Read: Retrieve an existing calculation by ID', async ({ page, request }) => {
+  const res = await request.post(`${API}/calculations`, {
+    data: { operation: 'add', operand1: 9, operand2: 6 },
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  const calc = await res.json();
+
+  await page.goto(BASE_URL);
+  await page.fill('#username', testUser.username);
+  await page.fill('#password', testUser.password);
+  await page.click('button:has-text("Login")');
+
+  await page.fill('#read-id', String(calc.id));
+  await page.click('button:has-text("Get Calculation")');
+
+  await expect(page.locator('#read-msg')).toHaveText('Calculation loaded');
+  await expect(page.locator('#read-result')).toContainText(`ID ${calc.id}`);
+});
+
 // ===== NEGATIVE SCENARIOS =====
 
 test('Add: Fails with non-numeric operands', async ({ page }) => {
@@ -115,6 +134,22 @@ test('Read: Returns 404 for non-existent ID', async ({ request }) => {
     headers: { Authorization: `Bearer ${token}` }
   });
   expect(res.status()).toBe(404);
+});
+
+test('Edit: Rejects non-numeric operands', async ({ request }) => {
+  const createRes = await request.post(`${API}/calculations`, {
+    data: { operation: 'add', operand1: 1, operand2: 2 },
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  const calc = await createRes.json();
+
+  const res = await request.put(`${API}/calculations/${calc.id}`, {
+    data: { operation: 'add', operand1: 'abc', operand2: 2 },
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  expect(res.status()).toBe(400);
+  const body = await res.json();
+  expect(body.error).toContain('Operands must be numbers');
 });
 
 test('Unauthorized: Access without token returns 401', async ({ request }) => {

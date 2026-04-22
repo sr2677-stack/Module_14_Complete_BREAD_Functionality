@@ -55,6 +55,9 @@ async function browseCalcs() {
   const res = await fetch(`${API}/calculations`, {
     headers: { 'Authorization': `Bearer ${token}` }
   });
+  if (!res.ok) {
+    return setMsg('add-msg', 'Unable to load calculations', 'red');
+  }
   const data = await res.json();
   const tbody = document.getElementById('calc-body');
   tbody.innerHTML = '';
@@ -116,6 +119,27 @@ async function deleteCalc() {
   const data = await res.json();
   setMsg('delete-msg', res.ok ? 'Deleted!' : data.error, res.ok ? 'green' : 'red');
   if (res.ok) browseCalcs();
+}
+
+async function readCalc() {
+  const id = document.getElementById('read-id').value;
+  const resultEl = document.getElementById('read-result');
+  if (!id) {
+    resultEl.textContent = '';
+    return setMsg('read-msg', 'ID is required', 'red');
+  }
+
+  const res = await fetch(`${API}/calculations/${id}`, {
+    headers: { 'Authorization': `Bearer ${token}` }
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    resultEl.textContent = '';
+    return setMsg('read-msg', data.error || 'Failed to fetch calculation', 'red');
+  }
+
+  setMsg('read-msg', 'Calculation loaded', 'green');
+  resultEl.textContent = `ID ${data.id}: ${data.operand1} ${data.operation} ${data.operand2} = ${data.result}`;
 }
 
 function setMsg(id, msg, color) {
