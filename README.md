@@ -59,4 +59,3 @@ Add these files before final submission:
 1. GitHub Actions success screenshot (workflow run page)
 2. Docker Hub push screenshot (image tags page)
 3. Frontend screenshots showing Add, Browse, Read, Edit, Delete
-4. Reflection document (already added as `REFLECTION.md`)
